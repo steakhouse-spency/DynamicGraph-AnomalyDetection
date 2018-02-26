@@ -2,6 +2,8 @@
 # store graph in adjacency matrix
     #scipi
     
+from apgl.graph import SparseGraph
+import numpy
 
 # file streaming
 file = "testData.txt"
