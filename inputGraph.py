@@ -18,7 +18,6 @@ if f.mode == 'r':
         n2 = int(data[1])
         w = int(data[2])
         graph[n1,n2] = w
-      	i+=1
-    print(i,   graph)
+    print(graph[0, 5])
 else:
     exit()
