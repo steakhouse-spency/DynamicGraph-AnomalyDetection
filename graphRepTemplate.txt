@@ -1,0 +1,8 @@
+# Text representation of
+# undirected/weighted graph data
+# sepereated by white space
+#######################################
+# node1(int)   node2(int)   weight(int)
+#
+## see testData.txt for example
+#######################################
