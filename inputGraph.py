@@ -1,12 +1,12 @@
 
 # store graph in adjacency matrix
     #scipi
-    
+from apgl.graph import SparseGraph
+import numpy
 
+graph = SparseGraph(10)
 # file streaming
 file = "testData.txt"
-print("yeet: ", file)
-
 f = open(file, "r")
 
 
@@ -19,12 +19,8 @@ if f.mode == 'r':
         n1 = int(data[0])
         n2 = int(data[1])
         w = int(data[2])
-        
-        i+=1
-    
+        graph[n1,n2] = w
+      	i+=1
+    print(i,   graph)
 else:
     exit()
-
-
-
-    
