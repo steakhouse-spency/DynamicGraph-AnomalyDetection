@@ -1,2 +1,5 @@
-sudo pip3 install numpy
-sudo pip3 install apgl
+#update virtualenv
+sudo pip install --upgrade virtualenv
+    # virtualenv -p python3 pythonenv
+    # sudo pip install numpy
+    # sudo pip install apgl
