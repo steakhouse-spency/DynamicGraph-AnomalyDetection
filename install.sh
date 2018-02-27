@@ -1,8 +1,16 @@
-#Run first time you install
-    
-# update virtualenv
+#!/bin/bash
+
+# Run first time you install
+############################
+
+# Update virtualenv
 sudo pip install --upgrade virtualenv
-# create virtual environment
+
+# Create virtual environment
 virtualenv -p python3 pythonenv
+
+# Activate virtual environment
+source pythonenv/bin/activate
+
 # Install requirments
-pip install -r requirements.txt
+sudo pip install -r requirements.txt
