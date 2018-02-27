@@ -1,5 +1,8 @@
-#update virtualenv
+#Run first time you install
+    
+# update virtualenv
 sudo pip install --upgrade virtualenv
-    # virtualenv -p python3 pythonenv
-    # sudo pip install numpy
-    # sudo pip install apgl
+# create virtual environment
+virtualenv -p python3 pythonenv
+# Install requirments
+pip install -r requirements.txt
