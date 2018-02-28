@@ -2,22 +2,30 @@
 from apgl.graph import SparseGraph
 import numpy
 
-graph = SparseGraph(10)
 # file streaming
 file = "testData.txt"
 f = open(file, "r")
 
-
-if f.mode == 'r':
-    content = f.readlines()
-    print("contents\n",content)
-    i = 0
-    for line in content:
-        data = line.split(" ")
-        n1 = int(data[0])
-        n2 = int(data[1])
-        w = int(data[2])
-        graph[n1,n2] = w
-    print(graph[0, 5])
-else:
+# exit if file not in readmode
+if f.mode != 'r':
     exit()
+
+# stream graph text file
+content = f.readlines()
+
+# get number of nodes
+numNodes = int(content[0])
+
+# create sparse graph with numNodes vertices
+graph = SparseGraph(numNodes)
+
+# iterate through every node connection
+# store in sparse graph
+for line in content[1:]:
+    data = line.split(" ")
+    n1 = int(data[0])
+    n2 = int(data[1])
+    w = int(data[2])
+    graph[n1,n2] = w
+    
+print(graph)

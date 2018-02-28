@@ -1,8 +1,23 @@
 # Text representation of
 # undirected/weighted graph data
 # sepereated by white space
+#
 #######################################
-# node1(int)   node2(int)   weight(int)
+# Graph Representation:
+#
+# numNodes(int)
+# node1(int)   node2(int)   weight
+#               ...
+#               ...
+#               ...
 #
 ## see testData.txt for example
 #######################################
+# Graph Representation Requirments:
+#
+# * numNodes(n) > 1
+# 
+# * node1 and node2
+#   Can not be equal
+#   Must range from 0 to n-1
+#   
