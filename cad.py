@@ -1,3 +1,7 @@
+from InputGraph import ingest
+from Distance import dijkstra
+from apgl.graph import SparseGraph
+
 # Input: Vertex set V , edge set E, adjacency matrix sequence At, t = 1, .., T , threshold δ, embedding dimension k
 # Output: Anomalous edge sets Et, node sets Vt
 # 3: for t in {1, .., T-1} do
@@ -14,40 +18,64 @@
 # 12: Output anomalous edges Et, anomalous nodes Vt
 # 13: end for
 
-
-# set of sequential dynamic graphs
-T = {}
-
-# Distance computation
-for t in T:
-    # compute (commute time) distance Ct(i,j) of every pair of nodes for vi,vj within Vt
-    # use embedding dimension k
-    print()
+def cad(filename):
     
-# CAD computation    
-for t in T:
-    # Compute ∆Et
-        # for every pair of nodes vi, vj within Vt
-        # ∆Et(e(i,j)) = |Vt+1(i,j) - Vt(i,j)| * |Ct+1(i,j) - Ct(i,j)|
+    # set of sequential dynamic graphs
+    G = ingest(filename)
+    # get number of nodes
+    n = G[0].getNumVertices()
+    
+    # set of node distances for graphs in G
+    D = []
+    #Distance computation for all graphs
+    for g in G:
+        # compute (commute time with embedding dimension k) distance Ct(i,j) of every pair of nodes for vi,vj within Vt
+        # used shortest path w/dijkstra for now
+        D.append(dijkstra(g))
+    
+    # get number of nodes
+    n = G[0].getNumVertices()
+    E = []
+    # CAD computation 
+    for t in range(0,len(G)-1):
+        # locate edge weight and distance graphs
+        t1 = G[t]
+        t2 = G[t+1]
+        d1 = D[t]
+        d2 = D[t+1]
         
-    # set of anomolous edges in ∆Et(e(i,j))
-    E = {}
+        # Compute ∆Et(e(i,j)) = |Vt+1(i,j) - Vt(i,j)| * |Ct+1(i,j) - Ct(i,j)|
+        # save anomolous nodes/edges and delta
+        anomNode = []
+        for i in range(n):
+            for j in range(i+1,n):
+                # print("i:",i, " - j:", j, " - t1: ", t1[i,j], " - t2:", t2[i,j], " - d1: ", d1[i,j] , " - d2:", d2[i,j])
+                delta = abs(t2[i,j] - t1[i,j]) * abs(d2[i,j] - d1[i,j])
+                if delta:
+                    anomNode.append({"nodes" : (i,j), "delta" : delta})
+        # add anomolous detections to E
+        E.append(anomNode)
+        
+    return(E)
     
-    #set of anomlous nodes
-    V = {}
     
-    for e in E:
-        # get anomlous nodes in E
-        print()
-    
-    # return E and V
-    
-    
+# E = cad("cadData.txt")[0]
+
+# print(E)
+
+# adj = E.adjacencyList()
+# deltaE = {}
+# for i in range(E.getNumVertices()): # i = source
+#     deltaE.update({i : dict(zip(adj[0][i],adj[1][i]))}) 
     
         
-    
-    
+# names = []
 
+# for i in range(1,9):
+#     names.append("b"+str(i))
     
-    
-    
+# for i in range(1,10):
+#     names.append("r"+str(i))
+
+# for i in deltaE:
+#     print(names[i],"(",i,"): ",deltaE[i])

@@ -15,19 +15,29 @@ def ingest(filename):
     content = f.readlines()
     f.close()
     
+    # retrieve meta data
+    cadMeta = content[0].split(" ")
+    
     # get number of nodes
-    numNodes = int(content[0])
+    numNodes = int(cadMeta[0])
     
-    # create sparse graph with numNodes vertices
-    graph = SparseGraph(numNodes)
+    # get number of time sequences
+    t = int(cadMeta[1])
     
+    # generate t amount of graphs
+    G = [] 
+    for _ in range(t):
+        G.append(SparseGraph(numNodes))
+
+        
     # iterate through every node connection
-    # store in sparse graph
+    # store in sparse graph for specific time sequence
     for line in content[1:]:
         data = line.split(" ")
         n1 = int(data[0])
         n2 = int(data[1])
         w = int(data[2])
-        graph[n1,n2] = w
+        t = int(data[3])
+        G[t][n1,n2] = w
         
-    return graph
+    return G
