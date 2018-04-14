@@ -1,7 +1,7 @@
 from InputGraph import ingest
 from Distance import dijkstra
 from apgl.graph import SparseGraph
-
+import time
 # Input: Vertex set V , edge set E, adjacency matrix sequence At, t = 1, .., T , threshold δ, embedding dimension k
 # Output: Anomalous edge sets Et, node sets Vt
 # 3: for t in {1, .., T-1} do
@@ -18,10 +18,10 @@ from apgl.graph import SparseGraph
 # 12: Output anomalous edges Et, anomalous nodes Vt
 # 13: end for
 
-def cad(filename):
+def cad():
     
     # set of sequential dynamic graphs
-    G = ingest(filename)
+    G = ingest("cadData.txt")
     # get number of nodes
     n = G[0].getNumVertices()
     
@@ -57,11 +57,7 @@ def cad(filename):
         E.append(anomNode)
         
     return(E)
-    
-    
-# E = cad("cadData.txt")[0]
 
-# print(E)
 
 # adj = E.adjacencyList()
 # deltaE = {}
