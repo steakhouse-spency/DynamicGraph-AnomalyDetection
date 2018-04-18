@@ -1,4 +1,4 @@
-#!/home/ubuntu/workspace/pythonenv/bin/python3
+#!/home/thotiana/Desktop/CST499/DynamicGraph-AnomalyDetection/pythonenv/bin/python3
 # See http://cens.ioc.ee/projects/f2py2e/
 from __future__ import division, print_function
 

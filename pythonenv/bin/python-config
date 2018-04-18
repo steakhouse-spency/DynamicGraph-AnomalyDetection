@@ -1,4 +1,4 @@
-#!/home/ubuntu/workspace/pythonenv/bin/python
+#!/home/thotiana/Desktop/CST499/DynamicGraph-AnomalyDetection/pythonenv/bin/python
 
 import sys
 import getopt

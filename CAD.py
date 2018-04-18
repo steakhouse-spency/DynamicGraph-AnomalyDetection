@@ -18,10 +18,10 @@ import time
 # 12: Output anomalous edges Et, anomalous nodes Vt
 # 13: end for
 
-def cad():
+def cad(filename):
     
     # set of sequential dynamic graphs
-    G = ingest("cadData.txt")
+    G = ingest(filename)
     # get number of nodes
     n = G[0].getNumVertices()
     
@@ -33,6 +33,8 @@ def cad():
         # used shortest path w/dijkstra for now
         D.append(dijkstra(g))
     
+    # return("done")
+
     # get number of nodes
     n = G[0].getNumVertices()
     E = []

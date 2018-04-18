@@ -36,7 +36,7 @@ end
 # Unset irrelevant variables.
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/ubuntu/workspace/pythonenv"
+set -gx VIRTUAL_ENV "/home/thotiana/Desktop/CST499/DynamicGraph-AnomalyDetection/pythonenv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

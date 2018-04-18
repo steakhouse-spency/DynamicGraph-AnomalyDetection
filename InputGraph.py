@@ -29,7 +29,7 @@ def ingest(filename):
     for _ in range(t):
         G.append(SparseGraph(numNodes))
 
-        
+      
     # iterate through every node connection
     # store in sparse graph for specific time sequence
     for line in content[1:]:
@@ -39,5 +39,5 @@ def ingest(filename):
         w = int(data[2])
         t = int(data[3])
         G[t][n1,n2] = w
-        
+
     return G

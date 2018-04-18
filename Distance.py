@@ -11,7 +11,12 @@ def dijkstra(graph):
     distances = {}
     for i in range(nvert): # i = source
         distances.update({i : dict(zip(connections[i],weights[i]))}) 
-    
+
+# TEST 
+    # for i in distances:
+    #     print(distances[i])   
+    # print("\n\n")
+    # # return("done")
     
     
     ct = SparseGraph(nvert)
@@ -34,5 +39,14 @@ def dijkstra(graph):
             del unvisited[current]
             if not unvisited: break
             candidates = [node for node in unvisited.items() if node[1]]
+            # print("i: ", i)
+            # print("current: ", current)
+            # print("candidates: ", candidates)
+            # print("currentDistance: ", currentDistance)
+            # print("______")
+
+            if not candidates:
+                # print("breaking out of i")
+                break
             current, currentDistance = sorted(candidates, key = lambda x: x[1])[0]
     return ct
