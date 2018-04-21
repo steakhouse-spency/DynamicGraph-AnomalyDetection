@@ -1,11 +1,11 @@
 from CAD import cad
-import InputGraph
-from Visualize import drawGraph
+# import InputGraph
+# from Visualize import drawGraph
 # from Distance import dijkstra
 
 
-G = InputGraph.ingest("dblp/graphData.txt")
-drawGraph(G[2])
+# G = InputGraph.ingest("dblp/graphData.txt")
+# drawGraph(G[2])
 
 
 # for i in range(len(G)):
@@ -20,9 +20,9 @@ drawGraph(G[2])
 # test = cad("cadData.txt")
 
 
-# test = cad("dblp/graphData.txt")
+cad("dblp/graphData.txt")
 
-# for i in test:
+# for i in e:
 # 	for j in i:
 # 		if j["delta"] >= 3:
 # 			print(j, "\n")

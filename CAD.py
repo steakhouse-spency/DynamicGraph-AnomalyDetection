@@ -1,7 +1,9 @@
 from InputGraph import ingest
 from Distance import dijkstra
 from apgl.graph import SparseGraph
-import time
+from Visualize import drawGraph
+import pprint
+
 # Input: Vertex set V , edge set E, adjacency matrix sequence At, t = 1, .., T , threshold δ, embedding dimension k
 # Output: Anomalous edge sets Et, node sets Vt
 # 3: for t in {1, .., T-1} do
@@ -43,22 +45,38 @@ def cad(filename):
         # locate edge weight and distance graphs
         t1 = G[t]
         t2 = G[t+1]
+        
         d1 = D[t]
         d2 = D[t+1]
         
         # Compute ∆Et(e(i,j)) = |Vt+1(i,j) - Vt(i,j)| * |Ct+1(i,j) - Ct(i,j)|
         # save anomolous nodes/edges and delta
-        anomNode = []
+        anomNode = {}
         for i in range(n):
             for j in range(i+1,n):
                 # print("i:",i, " - j:", j, " - t1: ", t1[i,j], " - t2:", t2[i,j], " - d1: ", d1[i,j] , " - d2:", d2[i,j])
                 delta = abs(t2[i,j] - t1[i,j]) * abs(d2[i,j] - d1[i,j])
                 if delta:
-                    anomNode.append({"nodes" : (i,j), "delta" : delta})
+                    #anomNode.append({"nodes" : (i,j), "delta" : delta})
+                    anomNode.update({(i,j) : delta})
         # add anomolous detections to E
         E.append(anomNode)
-        
-    return(E)
+     
+
+    #draw first graph without anomalies
+    drawGraph(G[0],{},1,"0 - t")
+
+    for t in range(1,len(G)):
+        name = str(t) + " - t"
+
+        drawGraph(G[t], E[t-1], 2, name)
+        break
+
+    # for i in E:
+    #     for j in i:
+    #         print(j)
+    #     print("\n\n")
+    # return(E)
 
 
 # adj = E.adjacencyList()
