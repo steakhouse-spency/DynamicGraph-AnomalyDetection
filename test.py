@@ -20,7 +20,7 @@ from CAD import cad
 # test = cad("cadData.txt")
 
 
-cad("dblp/graphData.txt")
+cad("dblp/graphDataTop50.txt")
 
 # for i in e:
 # 	for j in i:

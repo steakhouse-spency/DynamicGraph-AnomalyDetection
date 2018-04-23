@@ -64,13 +64,12 @@ def cad(filename):
      
 
     #draw first graph without anomalies
-    drawGraph(G[0],{},1,"0 - t")
+    # drawGraph(G[0],{},1,"0 - t")
 
     for t in range(1,len(G)):
         name = str(t) + " - t"
 
-        drawGraph(G[t], E[t-1], 2, name)
-        break
+        drawGraph(G[t], E[t-1], 7, name)
 
     # for i in E:
     #     for j in i:
