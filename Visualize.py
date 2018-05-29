@@ -2,14 +2,15 @@ import matplotlib.pyplot as plt
 import networkx as nx
 from apgl.graph import SparseGraph
 import operator
+from Authors import authors
 
 
 def drawGraph(g, e, threshold, filename):
 
-
-	plt.figure(figsize=(16,12)) 
-	nodeSize = 600
-	fontSize = 20
+	directory="generated_visuals/"
+	plt.figure(figsize=(32,24)) 
+	nodeSize = 1200
+	fontSize = 22
 
 	# create graph instance
 	G=nx.Graph()
@@ -32,7 +33,7 @@ def drawGraph(g, e, threshold, filename):
 
 
  	# positions for all nodes
-	pos=nx.spring_layout(G, k=1, iterations=35, scale=100)
+	pos=nx.spring_layout(G, k=1, iterations=10, scale=100)
 
 	# nodes
 	nx.draw_networkx_nodes(G,pos,node_size=nodeSize, node_color="#0000d8")
@@ -45,7 +46,7 @@ def drawGraph(g, e, threshold, filename):
 	
 	# plot configs
 	plt.axis('off')
-	plt.savefig(filename) # save as png
+	plt.savefig(directory+filename) # save as png
 	plt.clf()
 
 
@@ -54,26 +55,31 @@ def drawGraph(g, e, threshold, filename):
 	# print anomulous version of graph if any
 	if len(e) != 0:
 
+		auth = authors("dblp/authorsTop100.txt")
+
 		# create list of edges that are detected as anomalies
 		anom = {}
 		for (u,v,d) in G.edges(data=True):
 			nodes = (u,v)
 			if nodes in e.keys():
 				if e[nodes] > threshold:
-					# print(nodes, e[nodes])
+
+					auth1 = auth[nodes[0]]
+					auth2 = auth[nodes[1]]
+					print(auth1,",", auth2, " : ", e[nodes])
 					anom.update({nodes: e[nodes]})
 
-
-
+		print("\n\n")
+		# n = unqiue list of anomolous nodes
 		n = []
 		for i in anom.keys():
 			n.append(i[0])
 			n.append(i[1])
-
 		n = list(set(n))
 
 
-		# find total network of anomulous activity
+
+		# find total network of anomolous activity
 		anomEdgelist = []
 		anomNodeList = []
 		for i in n:
@@ -85,16 +91,12 @@ def drawGraph(g, e, threshold, filename):
 				else:
 					anomEdgelist.append((j,i))		
 				anomNodeList.append(j)			
-			# 	nodeB = neighb[j]
-			# 	if nodeA < nodeB:
+		# unique sets
 		anomEdgeList = list(set(anomEdgelist))
 		anomNodeList = list(set(anomNodeList))
 
 
-
-
-
-		
+		# width of anomaly edges
 		mn = min(anom.values())
 		mx = max(anom.values())
 		dev = round((mx-mn)/3)
@@ -102,7 +104,6 @@ def drawGraph(g, e, threshold, filename):
 		smallAnom = []
 		medAnom = []
 		lgAnom = []
-
 		for i in anom:
 			if anom[i] <= mn + dev:
 				smallAnom.append(i)
@@ -112,23 +113,11 @@ def drawGraph(g, e, threshold, filename):
 				lgAnom.append(i)
 
 
-
-
-		# print("total",G.nodes(),"\n")
-		# print("anom",n, "\n")
-		# delete = list(set(G.nodes()) - set(n))
-		# G.remove_nodes_from(delete)
-
-
-
-
 		# nodes
 		nx.draw_networkx_nodes(G,pos,nodelist=anomNodeList,node_size=nodeSize, node_color="#0000d8")
 		nx.draw_networkx_nodes(G,pos,nodelist=n, node_size=nodeSize, node_color="red")
-		# all edges
-		# nx.draw_networkx_edges(G,pos,edgelist=G.edges(data=True), width=1)
 
-		# anomlous node non anomulus connectiosn
+		# anomlous node and its connections
 		nx.draw_networkx_edges(G, pos, edgelist=anomEdgelist, width=1, edge_color="grey", style="dashed")
 
 		# anomalous edges
@@ -140,16 +129,13 @@ def drawGraph(g, e, threshold, filename):
 		nx.draw_networkx_labels(G,pos,font_size=fontSize,font_family='sans-serif', font_color="w")
 
 		# config
-
-
-
-
 		plt.axis('off')
 
-		sorted_anom = sorted(anom.items(), key=operator.itemgetter(1), reverse=True)
-		col_labels = ['Nodes','Score']
-		plt.table(cellText=sorted_anom,loc='left', colWidths = [.05]*len(sorted_anom), colLabels=col_labels)
+		#create table of anomaly scores
+		# sorted_anom = sorted(anom.items(), key=operator.itemgetter(1), reverse=True)
+		# col_labels = ['Nodes','Score']
+		# plt.table(cellText=sorted_anom,loc='left',fontsize=50, colWidths = [.05]*len(sorted_anom), colLabels=col_labels)
 
-		plt.savefig(filename+"+1") # save as png
+		plt.savefig(directory+filename+"+1") # save as png
 		plt.clf()
 

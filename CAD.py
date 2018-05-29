@@ -64,33 +64,7 @@ def cad(filename):
      
 
     #draw first graph without anomalies
-    # drawGraph(G[0],{},1,"0 - t")
 
     for t in range(1,len(G)):
         name = str(t) + " - t"
-
-        drawGraph(G[t], E[t-1], 7, name)
-
-    # for i in E:
-    #     for j in i:
-    #         print(j)
-    #     print("\n\n")
-    # return(E)
-
-
-# adj = E.adjacencyList()
-# deltaE = {}
-# for i in range(E.getNumVertices()): # i = source
-#     deltaE.update({i : dict(zip(adj[0][i],adj[1][i]))}) 
-    
-        
-# names = []
-
-# for i in range(1,9):
-#     names.append("b"+str(i))
-    
-# for i in range(1,10):
-#     names.append("r"+str(i))
-
-# for i in deltaE:
-#     print(names[i],"(",i,"): ",deltaE[i])
+        drawGraph(G[t], E[t-1], 10, name)
